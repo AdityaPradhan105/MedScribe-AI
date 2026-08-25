@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default base settings */
+body {
+  font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Accessibility: Text size scaling system */
+:root.text-size-normal {
+  font-size: 16px;
+}
+
+:root.text-size-large {
+  font-size: 19px; /* Scales up all relative layouts */
+}
+
+:root.text-size-xlarge {
+  font-size: 22px; /* Scales up even larger for elderly viewports */
+}
+
+/* Accessibility: High Contrast Mode */
+:root.high-contrast {
+  /* Enforces stark visual contrast across the app */
+  filter: contrast(130%) brightness(105%);
+}
+
+:root.high-contrast body {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+:root.high-contrast aside,
+:root.high-contrast header,
+:root.high-contrast main,
+:root.high-contrast div,
+:root.high-contrast section,
+:root.high-contrast nav,
+:root.high-contrast form,
+:root.high-contrast table {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+:root.high-contrast p,
+:root.high-contrast span,
+:root.high-contrast li,
+:root.high-contrast label,
+:root.high-contrast h1,
+:root.high-contrast h2,
+:root.high-contrast h3,
+:root.high-contrast h4,
+:root.high-contrast h5,
+:root.high-contrast h6,
+:root.high-contrast td,
+:root.high-contrast th {
+  color: #ffffff !important;
+}
+
+:root.high-contrast a,
+:root.high-contrast button {
+  background-color: #000000 !important;
+  color: #ffff00 !important; /* High-contrast yellow links/action triggers */
+  border: 2px solid #ffff00 !important;
+  font-weight: 800 !important;
+}
+
+:root.high-contrast select,
+:root.high-contrast input,
+:root.high-contrast textarea {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+}
+
+:root.high-contrast svg {
+  stroke: #ffffff !important;
+  fill: none !important;
+}
+
+/* Custom transitions */
+.transition-colors {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Custom Scrollbar for modern feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
