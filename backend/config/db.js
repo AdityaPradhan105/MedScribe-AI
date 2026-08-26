@@ -12,6 +12,12 @@ const connectDB = async () => {
     console.log(`MongoDB Connected (Primary): ${conn.connection.host}`);
   } catch (error) {
     console.error(`MongoDB Atlas Connection Failed: ${error.message}`);
+    
+    // In production / Vercel, throw the error immediately instead of attempting local fallback
+    if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+      throw error;
+    }
+
     console.log('\n================================================================');
     console.log('WARNING: Could not connect to MongoDB Atlas.');
     console.log('This is typically because your local IP address is not whitelisted');

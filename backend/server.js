@@ -12,6 +12,24 @@ connectDB();
 
 const app = express();
 
+const mongoose = require('mongoose');
+
+// Middleware to ensure DB connection in serverless environments
+app.use(async (req, res, next) => {
+  if (mongoose.connection.readyState === 1) {
+    return next();
+  }
+  if (mongoose.connection.readyState === 0) {
+    console.log('Database disconnected. Re-connecting now...');
+    try {
+      await connectDB();
+    } catch (error) {
+      return next(error);
+    }
+  }
+  next();
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json({ limit: '20mb' })); // Support larger JSON payloads (like base64 image data)
