@@ -293,6 +293,18 @@ const chatHealthcareAssistant = async (chatHistory, userMessage, targetLanguage 
     7. If asked about who made you or who owns this application, proudly state that you are developed and maintained by developer Aditya Pradhan.
   `;
 
+  // Format chat history for Gemini: [{ role: 'user' | 'model', parts: [{ text: string }] }]
+  const geminiHistory = chatHistory.map(msg => ({
+    role: msg.sender === 'user' ? 'user' : 'model',
+    parts: [{ text: msg.text }]
+  }));
+
+  // Filter leading model messages to maintain standard ordering for Gemini
+  let cleanGeminiHistory = [...geminiHistory];
+  while (cleanGeminiHistory.length > 0 && cleanGeminiHistory[0].role === 'model') {
+    cleanGeminiHistory.shift();
+  }
+
   // Try using Groq if API key is configured
   const groqApiKey = process.env.GROQ_API_KEY;
   if (groqApiKey) {
@@ -379,7 +391,7 @@ const chatHealthcareAssistant = async (chatHistory, userMessage, targetLanguage 
           systemInstruction: systemInstruction
         });
         const chat = model.startChat({
-          history: cleanHistory
+          history: cleanGeminiHistory
         });
         const result = await retryCall(() => chat.sendMessage(userMessage), 2, 2000);
         responseText = result.response.text();
