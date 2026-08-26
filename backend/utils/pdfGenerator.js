@@ -1,19 +1,19 @@
-let puppeteer;
-let chromium;
-
-const isVercel = process.env.VERCEL || process.env.NODE_ENV === 'production';
-
-if (isVercel) {
-  puppeteer = require('puppeteer-core');
-  chromium = require('@sparticuz/chromium');
-} else {
-  puppeteer = require('puppeteer');
-}
-
 /**
  * Generates a clean PDF representation of the simplified prescription
  */
 const generatePrescriptionPDF = async (prescription) => {
+  let puppeteer;
+  let chromium;
+
+  const isVercel = process.env.VERCEL || process.env.NODE_ENV === 'production';
+
+  if (isVercel) {
+    puppeteer = require('puppeteer-core');
+    chromium = require('@sparticuz/chromium');
+  } else {
+    puppeteer = require('puppeteer');
+  }
+
   const content = prescription.simplifiedContent;
   const lang = prescription.language || 'en';
   
