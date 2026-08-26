@@ -20,7 +20,7 @@
     },
     {
       "source": "/((?!api|health|assets|[^/]*\\.[^/]*$).*)",
-      "destination": { "service": "frontend", "path": "/index.html" }
+      "destination": "/index.html"
     },
     {
       "source": "/(.*)",
