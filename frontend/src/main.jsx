@@ -4,7 +4,10 @@ import './index.css'
 import App from './App.jsx'
 
 // Early non-blocking background ping to wake up Render backend from cold start
-const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const backendUrl = import.meta.env.VITE_API_URL || 
+  (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:5000'
+    : '');
 fetch(`${backendUrl}/health`).catch(() => {});
 
 createRoot(document.getElementById('root')).render(
